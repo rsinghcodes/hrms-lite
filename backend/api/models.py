@@ -12,7 +12,7 @@ class Employee(models.Model):
         ordering = ['-created_at']
 
     def __str__(self):
-        return f"{self.employee_id} - {self.full_name}"
+        return f"{self.employee_id} — {self.full_name}"
 
 
 class Attendance(models.Model):
@@ -31,8 +31,8 @@ class Attendance(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('employee', 'date')
         ordering = ['-date']
+        unique_together = [('employee', 'date')]
 
     def __str__(self):
-        return f"{self.employee.full_name} - {self.date} - {self.status}"
+        return f"{self.employee.employee_id} — {self.date} — {self.status}"
