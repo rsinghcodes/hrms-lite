@@ -20,15 +20,16 @@ class EmployeeSerializer(serializers.ModelSerializer):
 
 class AttendanceSerializer(serializers.ModelSerializer):
     employee_name = serializers.CharField(source='employee.full_name', read_only=True)
-    employee_code = serializers.CharField(source='employee.employee_id', read_only=True)
+    employee_id_display = serializers.CharField(source='employee.employee_id', read_only=True)
+    department = serializers.CharField(source='employee.department', read_only=True)
 
     class Meta:
         model = Attendance
         fields = [
-            'id', 'employee', 'employee_name', 'employee_code',
-            'date', 'status', 'created_at'
+            'id', 'employee', 'employee_name', 'employee_id_display',
+            'department', 'date', 'status', 'created_at'
         ]
-        read_only_fields = ['id', 'employee_name', 'employee_code', 'created_at']
+        read_only_fields = ['id', 'employee_name', 'employee_id_display', 'department', 'created_at']
 
     def validate(self, data):
         employee = data.get('employee')
